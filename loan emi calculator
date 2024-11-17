@@ -1,0 +1,35 @@
+import java.util.Scanner;
+
+public class Main {
+
+    public static double calculateEMI(double loanAmount, double annualInterestRate, int loanTenureYears) {
+        double monthlyInterestRate = annualInterestRate / (12 * 100); 
+int totalMonths = loanTenureYears * 12;
+        return (loanAmount * monthlyInterestRate * Math.pow(1 + monthlyInterestRate, totalMonths)) /
+               (Math.pow(1 + monthlyInterestRate, totalMonths) - 1);
+    }
+  public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.println("=== Loan EMI Calculator ===");
+        System.out.print("Enter loan amount: ");
+        double loanAmount = scanner.nextDouble();
+
+        System.out.print("Enter annual interest rate (in %): ");
+        double annualInterestRate = scanner.nextDouble();
+
+        System.out.print("Enter loan tenure (in years): ");
+        int loanTenureYears = scanner.nextInt();
+        double emi = calculateEMI(loanAmount, annualInterestRate,              	loanTenureYears);
+
+        double totalRepayment = emi * loanTenureYears * 12; 
+        double totalInterest = totalRepayment - loanAmount;
+
+        System.out.println("\n=== Loan Details ===");
+        System.out.printf("Monthly EMI: %.2f\n", emi);
+        System.out.printf("Total Repayment: %.2f\n", totalRepayment);
+        System.out.printf("Total Interest Payable: %.2f\n", totalInterest);
+
+        scanner.close();
+    }
+}
